@@ -1,6 +1,6 @@
 package Jabber::NodeFactory;
 
-# $Id: NodeFactory.pm,v 1.2 2001/09/24 09:19:52 dj Exp $
+# $Id: NodeFactory.pm,v 1.3 2002/02/22 20:02:58 dj Exp $
 
 use XML::Parser;
 
@@ -213,7 +213,7 @@ sub _charData {
 
   my ($self, $expat, $data) = @_;
   $self->_debug("DATA : $data");
-  $self->{currnode}->data($data);
+  $self->{currnode}->data($self->{currnode}->data().$data);
 
 }
 

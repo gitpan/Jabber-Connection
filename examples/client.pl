@@ -1,3 +1,4 @@
+use strict;
 use Jabber::Connection;
 use Jabber::NodeFactory;
 use Jabber::NS qw(:all);

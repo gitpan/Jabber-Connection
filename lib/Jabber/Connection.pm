@@ -1,6 +1,6 @@
 package Jabber::Connection;
 
-# $Id: Connection.pm,v 1.3 2001/09/24 13:26:46 dj Exp $
+# $Id: Connection.pm,v 1.6 2002/02/25 16:39:39 dj Exp $
 
 =head1 NAME
 
@@ -59,7 +59,7 @@ use constant BEAT => 5;
 
 use vars qw($VERSION);
 
-$VERSION = '0.02';
+$VERSION = '0.03';
 
 my $id = 1;
 
@@ -355,7 +355,8 @@ sub auth {
 sub _stream_header {
 
   my $self = shift;
-  my $hdr = qq[<?xml version='1.0'?><stream:stream xmlns='$self->{ns}' xmlns:stream='http://etherx.jabber.org/streams' to='$self->{host}'];
+  my $to = defined($self->{localname}) ? $self->{localname} : $self->{host};
+  my $hdr = qq[<?xml version='1.0'?><stream:stream xmlns='$self->{ns}' xmlns:stream='http://etherx.jabber.org/streams' to='$to'];
 # $hdr .= qq[ from='$self->{localname}'] if $self->{ns} eq NS_ACCEPT;
   $hdr .= qq[>];
   return $hdr;
@@ -408,7 +409,7 @@ sub _read {
   my $data;
   my $received;
 
-  while ($self->{socket}->recv($data, 1024)) {   # or POSIX::BUFSIZ?
+  while (defined $self->{socket}->recv($data, 1024)) {   # or POSIX::BUFSIZ?
     $received .= $data;
     last if length($data) != 1024;
   }

@@ -7,3 +7,5 @@ MANIFEST
 Makefile.PL
 test.pl
 examples/client.pl
+examples/component.pl
+examples/component.xml
